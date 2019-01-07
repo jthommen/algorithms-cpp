@@ -28,10 +28,9 @@ Sample data: 3 9 4 9 8 0 2 3 5 6 2 9 5 9 7 3 4 8 5 6 0 2 6 1
 */
 
 #include<iostream>
+#include "../../lib/analysis.hpp"
 
 static const int N = 10;
-
-void print_array(int *a);
 
 int main()
 {
@@ -40,40 +39,29 @@ int main()
 
     // array initialization
     for(i=0; i<N; i++) id[i] = i;
-    print_array(id);
+    analysis::print_array(id, N);
 
     // read pairs from input compute comparison
-    std::cout << "Please enter non negative integer pairs, separated by spaces (3 9 4 9): \n";
+    std::cout << "Please enter non negative integer pairs, separated by spaces (e.g. 3 9): \n";
     while(std::cin >> p >> q)
     {
         /* 
         Find:
-        if is is not array[i] then set i to array[i]
+        if i is not array[i] then set i to array[i]
         repeat as long as condition isn't true
         Follows the pointers/connections until the root node for p and q
         */
         for(i=p; i!= id[i]; i=id[i]);
-        print_array(id);
         for(j=q; j!=id[j]; j=id[j]);
-        print_array(id);
 
         /*
         Union:
         */
         if(i==j) continue;
         id[i] = j;
-        print_array(id);
+        analysis::print_array(id, N);
 
         std::cout << " " << p << " " << q << std::endl;
     }
 
-}
-
-void print_array(int *a)
-{
-    for(int i=0; i<N; ++i)
-    {
-        std::cout << a[i] << " ";
-    }
-    std::cout << std::endl;
 }

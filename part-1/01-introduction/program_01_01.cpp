@@ -40,7 +40,7 @@ int main()
     for(i=0; i<N; i++) id[i] = i;
 
     // read pairs from input compute comparison
-    std::cout << "Please enter non negative integer pairs, separated by spaces (3 9 4 9): \n";
+    std::cout << "Please enter non negative integer pairs, separated by spaces (e.g. 3 9): \n";
     while(std::cin >> p >> q)
     {
         // change all entries with value id[p] to have the value id[q]
