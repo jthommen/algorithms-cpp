@@ -1,3 +1,4 @@
+#include<chrono>
 #include<iostream>
 #include<random>
 
@@ -15,13 +16,13 @@ void analysis::print_array(int *a, int N)
 }
 
 void analysis::random_number_array(int *a, int N)
+/*
+Random Number Generator:
+Initialized with Mersenne Twister with popular params
+using random_device as seed value
+Generates uniform distribution with positive values
+*/
 {
-    /*
-    Random Number Generator:
-    Initialized with Mersenne Twister with popular params
-    using random_device as seed value
-    Generates uniform distribution with positive values
-    */
     std::random_device rdev;
     int32_t random_seed = rdev();
     std::seed_seq seeder{random_seed};
