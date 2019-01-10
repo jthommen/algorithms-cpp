@@ -1,54 +1,52 @@
-#include<chrono>
+/*
+###
+Exercise 3.1: Basic Data Type Sizes
+###
+
+Description:
+Find the largest and smallest numbers that you can represent with
+types int, long int, short int, float, and double in your programming
+environment.
+
+*/
+
 #include<iostream>
 #include "../../lib/analysis.hpp"
 
-int binary_search(int *a, int v, int l, int r);
 
-template<typename func, typename ...Types>
-int measure_time(func *f, Types... args)
-{
-    auto start = std::chrono::system_clock::now();
-
-    f(std::forward<Types>(args)...);
-
-    auto end = std::chrono::system_clock::now();
-    auto exect = std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count();
-    return exect;
-}
 
 int main()
 {
-    // Create search collection
-    int c[10000];
-    analysis::random_number_array(c, 10000);
+    /*
+    Note:
+    Basic types in C++ are: int, char, bool, float, and wchar_t
+    Datatype modifier are: signed, unsigned, short, long
+    */
+    std::cout<< "sizeof(int): " << sizeof(int) << " bytes.\n";
+    std::cout<< "sizeof(long int): " << sizeof(long int) << " bytes.\n"; 
+    std::cout<< "sizeof(short int): " << sizeof(short int) << " bytes.\n";
+    std::cout<< "sizeof(float): " << sizeof(float) << " bytes.\n";
+    std::cout<< "sizeof(double): " << sizeof(double) << " bytes.\n";
 
-    // Create values to searchfor
-    int t[10];
-    analysis::random_number_array(t, 10);
+    // optional:
+    std::cout<< "sizeof(bool): " << sizeof(bool) << " byte(s).\n";
+    std::cout<< "sizeof(char): " << sizeof(char) << " byte(s).\n";
+    std::cout<< "sizeof(long long int): " << sizeof(long long int) << " byte(s).\n";
 
-    int nano_time;
-    for(int i=0; i<10; i++)
-    {
-        nano_time += measure_time(binary_search, c, t[i], 0, 9999);
-    }
-    float micro_time = nano_time/1000.0; //microseconds
-    std::cout << "Execution time: " << nano_time << " nanoseconds or, " << micro_time << " microseconds\n";
-}
+    /*
+    Value ranges
 
-int binary_search(int *a, int v, int l, int r)
-/* Params:
-a = collection to search trough
-v = value to look for
-l = leftmost position in collection
-r = rightmost position in collection
-*/
-{
-    while(r >= 1)
-    {
-        int m = (l+r)/2;
-        if(v == a[m]) return m;
-        if(v < a[m]) r = m-1; else l = m+1;
-        if(l==m || r==m) break; // endless loop otherwise
-    }
-    return -1;
+    unsigned:
+    1 byte: 0 to 255
+    2 bytes: 0 to 65'535
+    4 bytes: 0 to 4'294'967'265
+    8 bytes: 0 to 18'446'744'073'709'551'615
+
+    signed:
+    1 byte: -128 t0 127
+    2 bytes: -32'768 to 32'767
+    4 bytes: -2'147'483'648 to 2'147'483'647
+    8 bytes: -9'223'372'036'854'775'808 to 9'223'372'036'854'775'807
+    */
+
 }
