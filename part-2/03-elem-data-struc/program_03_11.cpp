@@ -14,7 +14,7 @@ from the input and insert it into position in the output. The
 code is simplified by the use of head nodes for each list,
 that contain the links to the first nodes on the lists. The
 declarations of the head nodes use the constructor, so that 
-their data members are initialized when they are created.
+their data members are initialized when they are created
 
 */
 
