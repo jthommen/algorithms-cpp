@@ -27,22 +27,39 @@ struct node {
 
 typedef node* link;
 static link** grid;
-static int G, cnt = 0; static float d;
+static int G;
+static float d;
+int cnt = 0;
+
+float randFloat()
+{ return 1.0*rand()/RAND_MAX; }
 
 void gridinsert(float x, float y)
 {
   int X = x*G+1; int Y = y*G+1;
   point p; p.x = x; p.y = y;
-  link s, t = new node(p, grid[X][Y]);
+  std::cout << "p.x==" << p.x << " p.y==" << p.y << std::endl;
+  link s, t = new node(p, grid[X][Y]); // from where does s get it's values?
+  std::cout << "t->p.x==" << t->p.x << " t->p.y==" << t->p.y << std::endl;
+  std::cout << "s->p.x==" << s->p.x  << " s->p.y==" << s->p.y << std::endl;
   for(int i=X-1; i<=X+1; i++)
+  {
     for(int j=Y-1; j<=Y+1; j++)
+    {
       for(s = grid[i][j]; s != 0; s = s->next)
-        if(distance(s->p, t->p) < d) cnt++;
+      {
+        // segmentation fault with grid, no values there
+        std::cout << "grid[i][j]->p.x==" << grid[i][j]->p.x << std::endl;
+        std::cout << "grid[i][j]->p.y==" << grid[i][j]->p.y << std::endl;
+        std::cout << "s->p==" << s->p.x << std::endl;
+        std::cout << " t->p==" << t->p.x << std::endl;
+        if(distance(s->p, t->p) < d) cnt++; // Segmentation fault
+        std::cout << randFloat() << std::endl;
+      }
+    }
+  }
   grid[X][Y] = t;
 }
-
-float randFloat()
-{ return 1.0*rand()/RAND_MAX; }
 
 link** malloc2d(int r, int c)
 {
@@ -54,13 +71,36 @@ link** malloc2d(int r, int c)
 
 int main(int argc, char* argv[])
 {
+  // Command line arguments check
+  if(argc<3) 
+  {
+      std::cerr << "Need two command line arguments.\n";
+      return -1;
+  }
+
+  // Calculating setup values
   int i, N = atoi(argv[1]);
   d = atof(argv[2]); G = 1/d;
+  std::cout << "G==" << G << std::endl;
+  std::cout << "N==" << N << std::endl;
+  std::cout << "d==" << d << std::endl;
+
+  // Allocating memory for grid
   grid = malloc2d(G+2, G+2);
+
+  // Initialize grid values to 0
   for(i=0; i < G+2; i++)
+  {
     for(int j=0; j < G+2; j++)
+    {
       grid[i][j]=0;
-    for(i=0; i < N; i++)
-      gridinsert(randFloat(), randFloat());
-    std::cout << cnt << " pairs within " << d << std::endl;
+    }
+  }
+
+  // Insert values into grid & calc distance
+  for(i=0; i < N; i++)
+  {
+    gridinsert(randFloat(), randFloat());
+  }
+  std::cout << cnt << " pairs within " << d << std::endl;
 }
