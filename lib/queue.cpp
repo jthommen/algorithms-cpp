@@ -33,17 +33,10 @@ class queue
     }
   public:
     // Normal constructor    
-    queue(int)
-    {
-      head = 0;
-    }
+    queue() :head{0} { };
 
     // Copy constructor
-    queue(const queue& rhs)
-    {
-      head = 0;
-      *this = rhs;
-    }
+    queue(const queue& rhs) :head{0} { *this = rhs; }
 
     // Assignment operator
     queue& operator=(const queue& rhs)
