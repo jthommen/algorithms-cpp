@@ -1,20 +1,24 @@
 /*
 ###
-Program 6.1: Example of array Insertion Sort with driver program
+Program 6.4: Bubble Sort
 ###
 
 Description:
-This program illustrates our conventions for implementing basic array
-sorts. The main function is a driver that initializes an array of integers
-(either with random values or from standard input), calls a sort function
-to sort that array, then prints out the ordered result.
-  Templates allow the implementation to be used to sort items of any data
-type for which comparison and assignment are defined. The sort function
-here is a version of insertion sort. It uses a template function that
-compares two items and exchanges them if necessary to make the second not <
-than the first.
-  We can change the driver to sort any type of data for which operator< is
-defined without modifying sort at all.
+For each i from l to r-1, the inner (j) loop puts the minimum
+element among the elements in a[i], ..., a[r] into a[i] by passing
+from right to left through the elements, compare-exchanging 
+successive elements.
+The smallest one moves on all such comprisons, so it 'bubbles' to
+the beginning. As in selection sort, as the index i travles from
+left to right through the file, the elements to its left are in their
+final position in the array.
+
+Properties:
+- Bubble sort uses about N^2/2 comparisons and N^2/2 exchanges
+on the average and in the worst case.
+- Bubble sort is considered input independent.
+- Uses a lienar number of comparisons and exchanges for files with
+at most a constant number of inversions corresponding to each element.
 
 */
 
@@ -39,10 +43,10 @@ void compexch(Item& A, Item& B)
 // Compare and sort them
 // Double loop: for every item compare with every item
 template<typename Item>
-void sort(Item a[], int l, int r)
+void bubble(Item a[], int l, int r)
 {
-  for(int i=l+1; i<=r; i++)
-    for(int j=i; j>1; j--)
+  for(int i=l; i<r; i++)
+    for(int j=r; j>i; j--)
       compexch(a[j-1], a[j]);
 }
 
@@ -64,9 +68,10 @@ int main(int argc, char* argv[])
   }
 
   // Sorting numbers
-  sort(a, 0, N-1);
+  bubble(a, 0, N-1);
 
   // Printing sorted numbers
   for(i=0; i<N; i++) std::cout << a[i] << " ";
   std::cout << std::endl;
+
 }

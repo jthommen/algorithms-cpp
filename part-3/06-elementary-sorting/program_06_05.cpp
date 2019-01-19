@@ -1,20 +1,18 @@
 /*
 ###
-Program 6.1: Example of array Insertion Sort with driver program
+Program 6.2: Shellsort
 ###
 
 Description:
-This program illustrates our conventions for implementing basic array
-sorts. The main function is a driver that initializes an array of integers
-(either with random values or from standard input), calls a sort function
-to sort that array, then prints out the ordered result.
-  Templates allow the implementation to be used to sort items of any data
-type for which comparison and assignment are defined. The sort function
-here is a version of insertion sort. It uses a template function that
-compares two items and exchanges them if necessary to make the second not <
-than the first.
-  We can change the driver to sort any type of data for which operator< is
-defined without modifying sort at all.
+If we do not use sentinels and then replace every occurrence
+of "1" by "h" in insertion sort, the resulting program h-sorts
+the file. Adding an outer loop to change the increments leads
+to this compact shellsort implementation, which uses the increment 
+sequence: 1 4 13 40 121 364 1093 3280 9841 ....
+(start with 1, generate next increment by multiplying by 3 and adding 1)
+
+Properties:
+- Runtime depends on the increment sequence, but approx. N(log N)^2
 
 */
 
@@ -39,11 +37,22 @@ void compexch(Item& A, Item& B)
 // Compare and sort them
 // Double loop: for every item compare with every item
 template<typename Item>
-void sort(Item a[], int l, int r)
+void shellsort(Item a[], int l, int r)
 {
-  for(int i=l+1; i<=r; i++)
-    for(int j=i; j>1; j--)
-      compexch(a[j-1], a[j]);
+  int h;
+  for(h=1; h<= (r-l)/9; h = 3*h+1);
+  for(; h>0; h/=3)
+    for(int i = l+h; i <= r; i++)
+    {
+      int j=i;
+      Item v = a[i];
+      while(j >= l+h && v < a[j-h])
+      {
+        a[j] = a[j-h];
+        j -= h;
+      }
+      a[j] = v;
+    }
 }
 
 int main(int argc, char* argv[])
@@ -64,7 +73,7 @@ int main(int argc, char* argv[])
   }
 
   // Sorting numbers
-  sort(a, 0, N-1);
+  shellsort(a, 0, N-1);
 
   // Printing sorted numbers
   for(i=0; i<N; i++) std::cout << a[i] << " ";

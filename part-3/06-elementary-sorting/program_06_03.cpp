@@ -1,6 +1,6 @@
 /*
 ###
-Program 6.3: Adaptive Array insertion sort
+Program 6.3: Adaptive Array Insertion Sort
 ###
 
 Description:
@@ -18,6 +18,18 @@ For each i, it sorts the elements a[l], ..., a[i] by
 moving one position to the right elements in the sorted
 list a[l], ..., a[i-l] that are larger than a[i], then
 putting a[i] into its proper position.
+
+Properties:
+- Insertion sort uses about N^2/4 comparisons and N^2/4
+half-exchanges (moves) on the average, and twice that
+many at worst.
+- Uses a linear number of comparisons and exchanges for files with
+at most a constant number of inversions corresponding to each element.
+- The running time is directly proportional to the number of inversions
+in the file.
+- Uses a linear number of comparisons and exchanges for files with
+at most a constant number of elements having more than a constant 
+number of corresponding inversions.
 
 */
 
@@ -45,12 +57,20 @@ template<typename Item>
 void insertion(Item a[], int l, int r)
 {
   int i;
+
+  // put the smallest element in the array's first position
   for(i = r; i > l; i--) compexch(a[i-l], a[i]);
+  
+  //
   for(i = l+2; i <= r; i++)
   {
     int j = i; Item v = a[i];
+
+    // terminate loop when element is in position
     while (v < a[j-1])
     {
+      // single assignment in the inner loop
+      // (no exchange)
       a[j] = a[j-1];
       j--;
     }

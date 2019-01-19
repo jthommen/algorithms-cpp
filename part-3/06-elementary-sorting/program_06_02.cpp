@@ -1,20 +1,19 @@
 /*
 ###
-Program 6.1: Example of array Insertion Sort with driver program
+Program 6.2: Selection Sort
 ###
 
 Description:
-This program illustrates our conventions for implementing basic array
-sorts. The main function is a driver that initializes an array of integers
-(either with random values or from standard input), calls a sort function
-to sort that array, then prints out the ordered result.
-  Templates allow the implementation to be used to sort items of any data
-type for which comparison and assignment are defined. The sort function
-here is a version of insertion sort. It uses a template function that
-compares two items and exchanges them if necessary to make the second not <
-than the first.
-  We can change the driver to sort any type of data for which operator< is
-defined without modifying sort at all.
+For each i from l to r-1, exchange a[i] with the minimum
+element in a[i], ..., a[r]. As the index i travels from
+left to right, the elements to its left are in their final
+position in the array (and will not be touched again), so
+the array is fully sorted when i reaches the right end.
+
+Properties:
+- Selection sort uses N^2/2 comparisons and N exchanges.
+- In the usual case, the runtime is input independent.
+- Runs in linear time for files with large items and small keys.
 
 */
 
@@ -39,11 +38,15 @@ void compexch(Item& A, Item& B)
 // Compare and sort them
 // Double loop: for every item compare with every item
 template<typename Item>
-void sort(Item a[], int l, int r)
+void selection(Item a[], int l, int r)
 {
-  for(int i=l+1; i<=r; i++)
-    for(int j=i; j>1; j--)
-      compexch(a[j-1], a[j]);
+  for(int i=l; i<r; i++)
+  {
+    int min = i;
+    for(int j=i+1; j<=r; j++)
+      if(a[j] < a[min]) min = j;
+      exch(a[i], a[min]);
+  }
 }
 
 int main(int argc, char* argv[])
@@ -64,7 +67,7 @@ int main(int argc, char* argv[])
   }
 
   // Sorting numbers
-  sort(a, 0, N-1);
+  selection(a, 0, N-1);
 
   // Printing sorted numbers
   for(i=0; i<N; i++) std::cout << a[i] << " ";
