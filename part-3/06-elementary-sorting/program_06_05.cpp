@@ -1,6 +1,6 @@
 /*
 ###
-Program 6.2: Shellsort
+Program 6.5: Shellsort
 ###
 
 Description:
