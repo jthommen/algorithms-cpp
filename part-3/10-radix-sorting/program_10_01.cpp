@@ -1,6 +1,6 @@
 /*
 ###
-Program 10.1: Binary  quicksort
+Program 10.1: Binary quicksort
 ###
 
 Description:
@@ -13,7 +13,9 @@ keys in the file have a 0 in position d. An extra test just after the
 partitioning loop covers this case.
 
 Properties:
-
+- Worst case for radix sorting is to examien all the bytes in all the keys.
+- Examines about N lg N bits, on average, when sorting keys composed
+of random bits.
 
 */
 
