@@ -13,7 +13,10 @@ private recursive function searchR to scan through the list.
 are omitted.
 
 Properties:
-
+- Sequential search in a symbol table with N items uses about N/2 comparisons
+for search hits (on the average).
+- Sequential search in a symbol  table of N unordered items uses a constant number
+of steps for inserts and N comparisons for search misses (always).
 
 */
 

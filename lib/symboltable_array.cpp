@@ -14,6 +14,8 @@ and sort functions are trivial, remove is not implemented.
 Properties:
 - Sequential search in a symbol table with N items uses about N/2 comparisons
 for search hits (on the average).
+- Sequential search in a symbol table of N ordered items uses about N/2 comparisons
+for insertion, search hits and search misses (on the average).
 
 
 */
