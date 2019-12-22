@@ -42,7 +42,7 @@ template<typename Item>
 void sort(Item a[], int l, int r)
 {
   for(int i=l+1; i<=r; i++)
-    for(int j=i; j>1; j--)
+    for(int j=i; j>l; j--)
       compexch(a[j-1], a[j]);
 }
 
